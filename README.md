@@ -4,7 +4,7 @@ Get started with Airflow on OpenShift
 
 ## Tutorial Result
 
-Airflow 2.2.4 on OpenShift using Helm chart 1.5.1
+Airflow 2.2.4 on OpenShift using Helm chart 1.5.1 with an example DAG deployed.
 
 ## Prerequisites
 
@@ -63,14 +63,14 @@ Airflow 2.2.4 on OpenShift using Helm chart 1.5.1
     cp charts-postgresql-values.yaml airflow/charts/postgresql/values.yaml
     ```
 
-9. Change directory to the airflow folder. Install the Airflow Helm chart. Also, set config values so the DAGs are pulled from a Git repo.
+9. Change directory to the airflow folder. Install the Airflow Helm chart. Also, config values are set so the DAGs are pulled from a Git this Git repo. Change repo and subPath for your deployment.
 
     ```bash
     cd airflow && helm upgrade --install airflow ./ --namespace airflow \
     --values ./values.yaml \
-    --set dags.gitSync.repo=<git-repo-url> \
+    --set dags.gitSync.repo=https://github.com/redhat-na-ssa/airflow-on-openshift.git \
     --set dags.gitSync.branch=main \
-    --set dags.gitSync.subPath=<optional>
+    --set dags.gitSync.subPath=example_dag
     ```
 
 10. Create route for Airflow web UI
