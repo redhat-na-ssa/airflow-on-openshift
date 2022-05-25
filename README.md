@@ -8,8 +8,8 @@ Airflow 2.2.4 on OpenShift using Helm chart 1.5.1 with an example DAG deployed.
 
 ## Prerequisites
 
-1. OpenShift cluster available
-2. Install Helm
+1. OpenShift cluster
+2. Install [Helm](https://helm.sh/)
 
 ## Setup
 
