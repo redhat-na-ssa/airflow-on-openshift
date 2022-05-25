@@ -4,34 +4,35 @@ Get started with Airflow on OpenShift
 
 ## Tutorial Result
 
-Airflow 2.2.4 on OpenShift using Helm chart 1.5.1 with an example DAG deployed.
+Airflow 2.2.4 on OpenShift 4.9 using Helm chart 1.5.1 with an example DAG deployed.
 
 ## Prerequisites
 
-1. OpenShift cluster
-2. Install [Helm](https://helm.sh/)
+1. OpenShift cluster with admin permissions
+2. Install `oc` CLI tool
+3. Install [Helm](https://helm.sh/)
 
 ## Setup
 
-1. Login to OpenShift cluster via CLI to a user with cluster admin permissions
+1. Login to OpenShift cluster as cluster admin
 
     ```bash
     oc login <token>
     ```
 
-2. Create a namespace using the create-namespace.yml file
+2. Create a project using the `create-project.yml` file (Required)
 
     ```bash
-    oc create -f create-namespace.yaml
+    oc create -f create-project.yaml
     ```
 
-3. Change context to *airflow* workspace
+3. Change to `airflow` project
 
     ```bash
     oc project airflow
     ```
 
-4. Add Airflow Helm repo. Run on local machine(Logged into OpenShift cluster and in *airflow* context).
+4. Add Airflow Helm repo
 
     ```bash
     helm repo add apache-airflow https://airflow.apache.org
@@ -45,25 +46,25 @@ Airflow 2.2.4 on OpenShift using Helm chart 1.5.1 with an example DAG deployed.
 
     TODO pin version of Helm chart
 
-6. Unpack the tar file
+6. Update to your version and unpack the tar file
 
     ```bash
     tar xzf airflow-<version>.tgz
     ```
 
-7. Copy the airflow-values.yaml file over the airflow/values.yaml file
+7. Copy the `airflow-values.yaml` file over the `airflow/values.yaml` file
 
     ```bash
     cp airflow-values.yaml airflow/values.yaml
     ```
 
-8. Copy the charts-postgresql-values.yaml file over the airflow/charts/postgresql/values.yaml
+8. Copy the `charts-postgresql-values.yaml` file over the `airflow/charts/postgresql/values.yaml` file
 
     ```bash
     cp charts-postgresql-values.yaml airflow/charts/postgresql/values.yaml
     ```
 
-9. Change directory to the airflow folder. Install the Airflow Helm chart. Also, config values are set so the DAGs are pulled from a Git this Git repo. Change repo and subPath for your deployment.
+9. Change directory to the airflow folder. Install the Airflow Helm chart. Also, config values are set so the DAGs are pulled from this Git repo. Change repo and subPath for your deployment.
 
     ```bash
     cd airflow && helm upgrade --install airflow ./ --namespace airflow \
@@ -97,6 +98,12 @@ Airflow 2.2.4 on OpenShift using Helm chart 1.5.1 with an example DAG deployed.
     --service=airflow-flower \
     --insecure-policy=Redirect \
     --port=5555
+    ```
+
+12. Confirm routes
+
+    ```bash
+    oc get routes
     ```
 
 ## References
