@@ -77,10 +77,6 @@ Airflow 2.2.4 on OpenShift 4.9 using Helm chart 1.5.1 with an example DAG deploy
 10. Create route for Airflow web UI
 
     ```bash
-    oc expose svc/airflow-webserver
-    ```
-
-    ```bash
     oc create route edge \
     --service=airflow-webserver \
     --insecure-policy=Redirect \
@@ -88,10 +84,6 @@ Airflow 2.2.4 on OpenShift 4.9 using Helm chart 1.5.1 with an example DAG deploy
     ```
 
 11. Create route for the Airflow Flower web UI
-
-    ```bash
-    oc expose svc/airflow-flower
-    ```
 
     ```bash
     oc create route edge \
